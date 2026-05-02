@@ -46,10 +46,19 @@ ${letter_text}`
     const reflection = raw.match(/REFLECTION: ([\s\S]+)/)?.[1]?.trim();
     const scripture = `${scripture_ref} — "${scripture_text}"`;
 
-    const delivery_date = new Date();
-    if (delivery_window === 'month') delivery_date.setMonth(delivery_date.getMonth() + 1);
-    else if (delivery_window === 'random') delivery_date.setDate(delivery_date.getDate() + Math.floor(Math.random() * 14) + 1);
-    else delivery_date.setFullYear(delivery_date.getFullYear() + 1);
+    let delivery_date;
+if (delivery_window === 'week') {
+    delivery_date = new Date();
+    delivery_date.setDate(delivery_date.getDate() + 7);
+} else if (delivery_window === 'month') {
+    delivery_date = new Date();
+    delivery_date.setMonth(delivery_date.getMonth() + 1);
+} else if (delivery_window === 'year') {
+    delivery_date = new Date();
+    delivery_date.setFullYear(delivery_date.getFullYear() + 1);
+} else {
+    delivery_date = new Date(delivery_window);
+}
 
     const { data, error } = await supabase.from('letters').insert([{
       email,
@@ -70,7 +79,6 @@ ${letter_text}`
       from: 'Sundae <hello@sundaemail.com>',
       to: email,
       subject: `A message from your past self — ${title}`,
-      scheduledAt: delivery_date.toISOString(),
       html: `
         <h2>${title}</h2>
         <blockquote>${scripture}</blockquote>
