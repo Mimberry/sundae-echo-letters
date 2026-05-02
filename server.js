@@ -4,6 +4,8 @@ const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
 
 const app = express();
+const cors = require('cors')
+app.use(cors())
 app.use(express.json());
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
