@@ -75,21 +75,6 @@ if (delivery_window === 'week') {
 
     if (error) throw error;
 
-    await resend.emails.send({
-      from: 'Sundae <hello@sundaemail.com>',
-      to: email,
-      subject: `A message from your past self — ${title}`,
-      html: `
-        <h2>${title}</h2>
-        <blockquote>${scripture}</blockquote>
-        <p>${reflection}</p>
-        <hr/>
-        <p><em>Here is what you wrote:</em></p>
-        <p>${letter_text}</p>
-        <p style="color:#999;font-size:12px;">Sent with love from Sundae</p>
-      `
-    });
-
     res.json({ success: true });
 
   } catch (err) {
