@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json());
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/submit', async (req, res) => {
